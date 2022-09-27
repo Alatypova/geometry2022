@@ -34,6 +34,7 @@ void TestOrientation();
 
 void TestContourRectangles(httplib::Client* cli);
 void TestGrahamScan(httplib::Client* cli);
+void TestVoronoyPolygon(httplib::Client* cli);
 
 /* Конец вставки. */
 

@@ -119,10 +119,12 @@ add_executable(
   include/point_impl.hpp
   include/polygon.hpp
   include/polygon_impl.hpp
+  include/voronoy_polygon.hpp
   methods/contour_rectangles_method.cpp
   methods/graham_scan_method.cpp
   methods/main.cpp
   methods/methods.hpp
+  methods/voronoy_polygon_method.cpp
 )
 
 ####################################################################
@@ -152,6 +154,7 @@ add_executable(
   include/point_impl.hpp
   include/polygon.hpp
   include/polygon_impl.hpp
+  include/voronoy_polygon.hpp
   tests/contour_rectangles_test.cpp
   tests/edge_test.cpp
   tests/graham_scan_test.cpp
@@ -163,6 +166,7 @@ add_executable(
   tests/test.hpp
   tests/test_core.cpp
   tests/test_core.hpp
+  tests/voronoy_polygon_test.cpp
 )
 
 #####################################################################

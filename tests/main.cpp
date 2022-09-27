@@ -42,6 +42,7 @@ int main(int argc, char* argv[]) {
 
   TestContourRectangles(&cli);
   TestGrahamScan(&cli);
+  TestVoronoyPolygon(&cli);
 
   /* Конец вставки. */
 
