@@ -26,7 +26,7 @@ B  Метод at() в отличие оператора [] не меняет о�
   long double eps = input.at("precision");
 
   /* Пока реализована только поддержка чисел типа double и long double. */
-  if (type == "double"){
+  if (type == "double") {
     return VoronoyPolygonMethodHelper<double>(input, output, type, eps);
   } else if (type == "long double") {
     return VoronoyPolygonMethodHelper<long double>(input, output, type, eps);
@@ -38,7 +38,7 @@ B  Метод at() в отличие оператора [] не меняет о�
 /**
  * @brief Метод определения многоугольника Вороного.
  *
- * @tparam T Тип данных координат вершин. 
+ * @tparam T Тип данных координат вершин.
  *
  * @param input Входные данные в формате JSON.
  * @param output Выходные данные в формате JSON.
@@ -91,7 +91,7 @@ static int VoronoyPolygonMethodHelper(const nlohmann::json& input,
 
   Polygon<T, std::list<Point<T>>>* r = voronoyRegion(p, data, size, box, eps);
 
- /* Сохраняем в ответе результат работы алгоритма. */
+  /* Сохраняем в ответе результат работы алгоритма. */
   size_t sizeOfR = r->Size();
 
   (*output)["size"] = sizeOfR;

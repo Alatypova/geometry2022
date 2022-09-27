@@ -44,7 +44,7 @@ static void SimpleTest(httplib::Client* cli) {
     функции nlohmann::json::parse(), но и при помощи
     специального литерала _json. Если его поставить после строки
     в кавычках, то она конвертируется в json объект.
-    
+
     R"(
     )" Так записывается строка, содержащая символы перевода строки
     в C++. Всё, что между скобками это символы строки. Перводы строк
@@ -139,7 +139,6 @@ static void SimpleTest2(httplib::Client* cli) {
     REQUIRE_EQUAL(to_string(output["data"][1]), "[0.0,0.0]");
     REQUIRE_EQUAL(to_string(output["data"][2]), "[0.0,1.0]");
   }
-
 }
 static void SimpleTest3(httplib::Client* cli) {
   {
@@ -149,7 +148,7 @@ static void SimpleTest3(httplib::Client* cli) {
     функции nlohmann::json::parse(), но и при помощи
     специального литерала _json. Если его поставить после строки
     в кавычках, то она конвертируется в json объект.
-    
+
     R"(
     )" Так записывается строка, содержащая символы перевода строки
     в C++. Всё, что между скобками это символы строки. Перводы строк
@@ -220,7 +219,6 @@ static void RandomFloatingPointHelperTest(httplib::Client* cli,
   // Число попыток.
   const int numTries = 10;
   // Относительная точность сравнения.
-  //const T eps = std::numeric_limits<T>::epsilon() * T(1e6);
   const T eps = 1e-7;
   // Используется для инициализации генератора случайных чисел.
   std::random_device rd;
@@ -230,7 +228,6 @@ static void RandomFloatingPointHelperTest(httplib::Client* cli,
   std::uniform_int_distribution<size_t> arraySize(1, 20);
   // Распределение для элементов массива.
   std::uniform_real_distribution<T> elem(T(-10'000), T(10'000));
-  //std::uniform_int_distribution<int> elem(-100, 100);
   size_t it = 0;
   for (it = 0; it < numTries; it++) {
     // Получаем случайный размер массива, используя функцию распределения.
@@ -253,7 +250,6 @@ static void RandomFloatingPointHelperTest(httplib::Client* cli,
       // Записываем элемент в JSON.
       input["data"][i][0] = data[i].X();
       input["data"][i][1] = data[i].Y();
-
     }
     geometry::Point<T> pointP;
     pointP.X() = elem(gen);

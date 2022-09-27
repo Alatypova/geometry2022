@@ -84,7 +84,7 @@ int main(int argc, char* argv[]) {
     */
     res.set_content(output.dump(), "application/json");
   });
-  
+
   /* /VoronoyPolygon это адрес для запросов на нахождение
   многоугольника Вороного. */
   svr.Post("/VoronoyPolygon", [&](const httplib::Request& req,

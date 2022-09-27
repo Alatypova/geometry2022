@@ -9,10 +9,11 @@
 #define INCLUDE_VORONOY_POLYGON_HPP_
 
 #include <cstddef>
-#include <point.hpp>
-#include <polygon.hpp>
 #include <string>
 #include <iostream>
+#include <list>
+#include "point.hpp"
+#include "polygon.hpp"
 
 namespace geometry {
 
@@ -27,7 +28,7 @@ namespace geometry {
  * @param s Точка, в которой нужно посчиать значение уравнения.
  */
 template<typename T>
-T midPerp(Point<T> &p, Point<T> &q, Point<T> &s) {
+T midPerp(const Point<T> &p, const Point<T> &q, const Point<T> &s) {
   return (q.X() - p.X())*(2*s.X() - p.X() - q.X()) +
   (q.Y() - p.Y())*(2*s.Y() - p.Y() - q.Y());
 }
@@ -48,8 +49,9 @@ T midPerp(Point<T> &p, Point<T> &q, Point<T> &s) {
 
 template<typename T>
 bool weNeedToAddThePoint(Edge<T> edge,
-                           Point<T> &p, Point<T> &q,
-                           long double eps) {
+                         const Point<T> &p,
+                         const Point<T> &q,
+                         long double eps) {
   T x1 = edge.Origin().X();
   T y1 = edge.Origin().Y();
   T x2 = edge.Destination().X();
@@ -79,7 +81,8 @@ bool weNeedToAddThePoint(Edge<T> edge,
 
 template<typename T>
 Point<T> IntersectionPoint(Edge<T> edge,
-                           Point<T> &p, Point<T> &q,
+                           const Point<T> &p,
+                           const Point<T> &q,
                            long double eps) {
   Point<T> S;
   T x1 = edge.Origin().X();
@@ -112,9 +115,10 @@ Point<T> IntersectionPoint(Edge<T> edge,
  */
 
 template<typename T>
-void halfplaneIntersect(Point<T> &q,
+void halfplaneIntersect(const Point<T> &q,
                         Polygon<T, std::list<Point<T>>> *polygon,
-                        Point<T> &p, long double eps) {
+                        const Point<T> &p,
+                        long double eps) {
   int typeOfFirstPoint = 0;
   int typeOfLastPoint = 0;
   auto first = polygon->Current();
@@ -139,7 +143,8 @@ void halfplaneIntersect(Point<T> &q,
       first = polygon->Current();
       typeOfFirstPoint = 2;
     }
-    if ((std::abs(midPerp(p, q, *firstPoint)) < eps) && (midPerp(p, q, *secondPoint) > eps)) {
+    if ((std::abs(midPerp(p, q, *firstPoint)) < eps) &&
+       (midPerp(p, q, *secondPoint) > eps)) {
       last = polygon->Current();
       typeOfLastPoint = 2;
     }
@@ -157,7 +162,7 @@ void halfplaneIntersect(Point<T> &q,
     return;
   }
   polygon->Current() = first;
-  if ((typeOfFirstPoint == 2) && (typeOfLastPoint == 2) && (first == last)){
+  if ((typeOfFirstPoint == 2) && (typeOfLastPoint == 2) && (first == last)) {
     Polygon<T, std::list<Point<T>>> polygonForHelp;
     *polygon = polygonForHelp;
     return;
@@ -184,7 +189,7 @@ void halfplaneIntersect(Point<T> &q,
       auto it1 = polygon->Insert(point);
       polygon->Current() = polygon->CounterClockWise();
   }
-  if ((typeOfLastPoint == 1) && (weNeedToAddThePoint(lastEdge, p, q, eps))){
+  if ((typeOfLastPoint == 1) && (weNeedToAddThePoint(lastEdge, p, q, eps))) {
     point = IntersectionPoint(lastEdge, p, q, eps);
     auto it2 = polygon->Insert(point);
   }
@@ -204,10 +209,10 @@ void halfplaneIntersect(Point<T> &q,
  */
 
 template<typename T>
-Polygon<T, std::list<Point<T>>> *voronoyRegion(Point<T> &p, Point<T>* s,
-                                               size_t n,
-                                               const Polygon<T, std::list<Point<T>>>
-                                               &box, long double eps) {
+Polygon<T, std::list<Point<T>>> *voronoyRegion(const Point<T> &p,
+                            Point<T>* s, size_t n,
+                            const Polygon<T, std::list<Point<T>>>
+                            &box, long double eps) {
   auto *r = new Polygon <T, std::list<Point <T>>>(box);
   for (size_t i = 0; i < n; i++) {
     if (p.IsEqual(p, s[i], eps)) {
